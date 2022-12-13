@@ -32,5 +32,14 @@ http {
             TODO: Nginx server config using proxy_pass and {{ app_port }}
         #}
         # TODO: Your code here
+        location / {
+            proxy_pass http://localhost:{{app_port}};
+            proxy_buffering off;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-Host $host;
+            proxy_set_header X-Forwarded-Port $server_port;
+        }
+        listen 80;
+        server_name localhost;
     }
 }
